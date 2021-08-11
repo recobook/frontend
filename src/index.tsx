@@ -3,12 +3,11 @@ import ReactDOM from 'react-dom';
 
 import './styles.css'
 
-import Login from './pages/login'
 
 const App: React.FC = () => {
   return (
-    <Login>
-    </Login>
+    <>
+    </>
     )
 }
   
