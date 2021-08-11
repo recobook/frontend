@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import './styles.css'
-
+import Login from './pages/Login/index';
 
 const App: React.FC = () => {
   return (
-    <>
-    </>
+    <Login>
+    </Login>
     )
 }
   
