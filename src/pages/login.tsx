@@ -16,7 +16,9 @@ const Login: React.FC = () => {
 
   return (
     <Container>
-      <SectionLogin />
+      <SectionLogin> 
+        
+      </SectionLogin>
       <SectionCreateAccount>
          <Title>Seja Bem Vindo</Title>
          <Paragraph>
