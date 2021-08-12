@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -14,7 +14,22 @@ import {
   Form
 } from './styles';
 
+import {AuthContext} from '../../providers/auth';
+
+
 const Login: React.FC = () => {
+
+  const {login} = useContext(AuthContext)
+
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    const username = form.get("username") as string
+    const password = form.get("password") as string
+
+    await login(username,password);
+  }
+
   return (
       <Container>
         <SectionMain backgroundColor="var(--white)" width="60%">
@@ -22,14 +37,14 @@ const Login: React.FC = () => {
             <Logo src="/assets/logo.png" />
           </Header>
           <Title fontSize="46px" color="var(--red)" >Entre em sua conta</Title>
-          <Form>
-            <TextField style={{width: "460px", height: "60px" }} color="secondary"  id="input-username" label="username" variant="outlined" />
-            <TextField style={{width: "460px", height: "60px" }} color="secondary" label="Senha" variant="outlined" />
+          <Form onSubmit={onSubmit}>
+            <TextField style={{width: "460px", height: "60px" }} color="secondary" name="username" label="username" variant="outlined" required />
+            <TextField style={{width: "460px", height: "60px" }} color="secondary" name="password" label="Senha" variant="outlined" required/>
             <div style={{width: "460px",display: "flex", alignItems: "center",justifyContent: "space-between"}} >
               <FormControlLabel control={<Checkbox  />} label="Me lembre" />
               <a href="/esqueci_minha_senha">privacidade</a>
             </div>
-            <Button backgroundColor="var(--red)" color="var(--white)" fontSize="18px" height="60px" width="223px"  >Entrar</Button>
+            <Button backgroundColor="var(--red)" color="var(--white)" fontSize="18px" height="60px" width="223px" >Entrar</Button>
           </Form>
           <div style={{width: "460px", height: "30px",display: "flex", alignItems: "center",justifyContent: "center"}} >
             <a href="/privacidade">privacidade</a>

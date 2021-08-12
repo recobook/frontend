@@ -4,10 +4,14 @@ import ReactDOM from 'react-dom';
 import './styles.css'
 import Login from './pages/Login/index';
 
+import {AuthProvider} from './providers/auth'
+
+
 const App: React.FC = () => {
   return (
-    <Login>
-    </Login>
+    <AuthProvider>
+      <Login/>
+    </AuthProvider>
     )
 }
   
