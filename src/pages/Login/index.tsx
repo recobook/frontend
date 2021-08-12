@@ -39,7 +39,7 @@ const Login: React.FC = () => {
           <Title fontSize="46px" color="var(--red)" >Entre em sua conta</Title>
           <Form onSubmit={onSubmit}>
             <TextField className="inputs" color="secondary" name="username" label="username" variant="outlined" required />
-            <TextField className="inputs" color="secondary" name="password" label="Senha" variant="outlined" required/>
+            <TextField className="inputs" color="secondary" name="password" label="Senha" type="password" variant="outlined" required/>
             <div className="area-options-login" >
               <FormControlLabel control={<Checkbox  />} label="Me lembre" />
               <a href="/esqueci_minha_senha">privacidade</a>
