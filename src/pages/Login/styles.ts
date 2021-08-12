@@ -1,41 +1,75 @@
 import styled from "styled-components";
 
 
-
-
-
 export const Container = styled.div`
     width: 100%;
     height: 100%;
     background-color: var(--white);
     display: flex;
     font-family: 'Roboto',sans-serif;
+
+    @media only screen and (max-width: 800px) {
+        flex-direction: column;
+        height: 1200px;
+    }
+
+    .inputs {
+        width: 460px;
+        height: 60px;
+
+        @media only screen and (max-width: 800px) {
+            width: 90%;
+        }
+    }
+    .area-options-login {
+        width: 460px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        @media only screen and (max-width: 800px) {
+            width: 90%;
+        }
+    }
+    
 `;
 
 interface SectionProps {
-    width: string;
     backgroundColor: string
 }
 
 export const Section = styled.div<SectionProps>`
     height: 100%;
-    width: ${props => props.width };
+    width: 40%;
     background-color: ${props => props.backgroundColor};
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
 
+    @media only screen and (max-width: 800px) {
+        width: 100%;
+    }
+
 `
 
-export const SectionMain = styled.div<SectionProps>`
+interface SectionMainProps {
+    backgroundColor: string
+}
+
+export const SectionMain = styled.div<SectionMainProps>`
     height: 100%;
-    width: ${props => props.width };
+    width: 60.43927648578811%;
     background-color: ${props => props.backgroundColor};
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+
+
+    @media only screen and (max-width: 800px) {
+        width: 100%;
+    }
 `
 
 
@@ -57,6 +91,10 @@ export const Title = styled.h2<TitleProps>`
         display: block;
         margin: 0 auto;
     } 
+
+    @media only screen and (max-width: 800px) {
+        font-size: 36px;
+    }
 `
 
 interface ButtonProps {

@@ -32,27 +32,27 @@ const Login: React.FC = () => {
 
   return (
       <Container>
-        <SectionMain backgroundColor="var(--white)" width="60%">
+        <SectionMain backgroundColor="var(--white)">
           <Header>
             <Logo src="/assets/logo.png" />
           </Header>
           <Title fontSize="46px" color="var(--red)" >Entre em sua conta</Title>
           <Form onSubmit={onSubmit}>
-            <TextField style={{width: "460px", height: "60px" }} color="secondary" name="username" label="username" variant="outlined" required />
-            <TextField style={{width: "460px", height: "60px" }} color="secondary" name="password" label="Senha" variant="outlined" required/>
-            <div style={{width: "460px",display: "flex", alignItems: "center",justifyContent: "space-between"}} >
+            <TextField className="inputs" color="secondary" name="username" label="username" variant="outlined" required />
+            <TextField className="inputs" color="secondary" name="password" label="Senha" variant="outlined" required/>
+            <div className="area-options-login" >
               <FormControlLabel control={<Checkbox  />} label="Me lembre" />
               <a href="/esqueci_minha_senha">privacidade</a>
             </div>
             <Button backgroundColor="var(--red)" color="var(--white)" fontSize="18px" height="60px" width="223px" >Entrar</Button>
           </Form>
-          <div style={{width: "460px", height: "30px",display: "flex", alignItems: "center",justifyContent: "center"}} >
+          <div style={{width: "100%", height: "30px",display: "flex", alignItems: "center",justifyContent: "center"}} >
             <a href="/privacidade">privacidade</a>
             <div style={{width: "5px", height: "5px",margin: "0px 20px 0px 20px", borderRadius: "17px", backgroundColor: "#C4C4C4"}} > </div>
             <a href="/termos_de_uso">termos de uso</a>
           </div>
         </SectionMain>
-        <Section backgroundColor="var(--red)" width="40.43927648578811%">
+        <Section backgroundColor="var(--red)">
           <Title fontSize="36px" color="var(--white)" >Seja BemVindo</Title>
           <p style={{ width: "90%",textAlign: "center" , color: "var(--white)"  }} >Sistema universal de recomendação de Locais</p>
           <p style={{ width: "90%",textAlign: "justify", color: "var(--white)"  }} >
