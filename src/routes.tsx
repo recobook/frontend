@@ -3,6 +3,7 @@ import {Redirect, Route,Switch } from "react-router-dom";
 
 import Login from "./pages/Login";
 import CreateAccount from "./pages/CreateAccount";
+import ForgoutPassword from './pages/ForgoutPassword'
 
 const PrivateRoute  = ({ component: Component, ...rest }:any) => (
   <Route
@@ -23,6 +24,8 @@ export default function Routes() {
       <Switch>
         <Route path="/login" exact component={Login} />  
         <Route path="/signup" exact component={CreateAccount} />  
+        <Route path="/forgoutPassword" exact component={ForgoutPassword} />  
+        
       </Switch>
   );
 }
