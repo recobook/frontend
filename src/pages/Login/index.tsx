@@ -31,6 +31,13 @@ const Login: React.FC = () => {
     const password = form.get("password") as string
 
     await login(username,password);
+
+    if(localStorage.getItem("isAuthenticated") === "true"){
+      setTimeout(() => {
+        window.location.pathname = "/"
+      
+      },1000)
+    }
   }
 
   return (
@@ -50,7 +57,7 @@ const Login: React.FC = () => {
               <div></div>
               <Link to="/forgoutPassword">Esqueci Minha Senha</Link>
             </div>
-            <Button backgroundColor="var(--red)" color="var(--white)" fontSize="18px" height="60px" width="223px" >Entrar</Button>
+              <Button backgroundColor="var(--red)" color="var(--white)" fontSize="18px" height="60px" width="223px" >Entrar</Button>
           </Form>
           <div style={{width: "100%", height: "30px",display: "flex", alignItems: "center",justifyContent: "center"}} >
             <a href="/privacidade.html">privacidade</a>
