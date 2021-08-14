@@ -10,7 +10,6 @@ export const Container = styled.div`
 
     @media only screen and (max-width: 800px) {
         flex-direction: column;
-        height: 1200px;
     }
 
     .inputs {

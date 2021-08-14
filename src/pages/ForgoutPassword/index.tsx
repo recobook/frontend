@@ -42,7 +42,7 @@ const ForgoutPassword: React.FC = () => {
           <Header>
             <Logo src="/assets/logo.png" />
           </Header>
-          <Title fontSize="46px" color="var(--red)" >Entre em sua conta</Title>
+          <Title fontSize="46px" color="var(--red)" >Esqueci minha senha</Title>
           <Form onSubmit={onSubmit}>
             <TextField className="inputs" color="secondary" name="email" type="email" label="email" variant="outlined" required />
             {
