@@ -2,8 +2,7 @@
 ![](https://img.shields.io/badge/Status-InDevelopment-gree)
 
 
-![](images/Banner1512x720.svg)
-
+![](https://github.com/recobook/core/raw/main/images/Banner1512x720.svg)
 
 Sistema universal de recomendação de Locais 
 
@@ -69,7 +68,7 @@ Considerando esta demanda específica universal de centralizar as experiências 
 
 ### Wireframes 🖼
 
-[![](images/PaginaPrincipal.svg)](https://www.figma.com/file/I9X2Xs0EJeO7Zp2ejWcGFr/Untitled?node-id=15%3A32)
+[![](https://github.com/recobook/core/raw/main/images/PaginaPrincipal.svg)](https://www.figma.com/file/I9X2Xs0EJeO7Zp2ejWcGFr/Untitled?node-id=15%3A32)
 
 [Vá para o figma :)](https://www.figma.com/file/I9X2Xs0EJeO7Zp2ejWcGFr/Untitled?node-id=15%3A32)
 
