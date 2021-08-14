@@ -71,9 +71,9 @@ const CreateAccount: React.FC = () => {
             <Button backgroundColor="var(--red)" color="var(--white)" fontSize="18px" height="60px" width="223px" >Criar minha conta</Button>
           </Form>
           <div style={{width: "100%", height: "30px",display: "flex", alignItems: "center",justifyContent: "center"}} >
-            <a href="/privacidade">privacidade</a>
+            <a href="/privacidade.html">privacidade</a>
             <div style={{width: "5px", height: "5px",margin: "0px 20px 0px 20px", borderRadius: "17px", backgroundColor: "#C4C4C4"}} > </div>
-            <a href="/termos_de_uso">termos de uso</a>
+            <a href="/termos_de_uso.html">termos de uso</a>
           </div>
         </SectionMain>
         <Section backgroundColor="var(--red)">
