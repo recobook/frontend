@@ -69,10 +69,12 @@ export const Header = styled.header`
     width: 100%;
     height: 70px;
     padding-left: 30px;
-    margin-bottom: 35px;
+    margin-bottom: 15px;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
 
     .icons {
         width: 45px;
@@ -105,4 +107,39 @@ export const Avatar = styled.img`
     width: 44px;
     height: 44px;
     border-radius: 49em;
+    cursor: pointer;
 `
+export const Main = styled.div`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+`
+export const SectionInfo = styled.section`
+    display: flex;
+    flex-direction: column;
+
+    .container-mini-main {
+        width: 217px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+    .container-mini-avatar {
+        display: flex;
+        font-size: 14px;
+        flex-direction: column;
+        align-items: center;
+
+        p {
+            width:  100%;
+        }
+    }
+
+    .container-mini-description {
+        width: 100%;
+        margin-top: 10px;
+    }
+`
+export const SectionPosts = styled.section``

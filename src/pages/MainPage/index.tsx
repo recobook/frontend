@@ -13,7 +13,11 @@ import {
   Header,
   Logo,
   Avatar,
+  Main,
+  SectionPosts,
+  SectionInfo
 } from './styles';
+import { Link } from 'react-router-dom';
 
 const MainPage: React.FC = () => {
 
@@ -31,11 +35,31 @@ const MainPage: React.FC = () => {
               <FontAwesomeIcon className="icons icon-filter" icon={faFilter}  color="#CB6161" />
             </div>
             <div className="column-header">
-              <FontAwesomeIcon className="icons" icon={faHome} color="#F3F3F3"  />
+              <Link to="/" ><FontAwesomeIcon className="icons" icon={faHome} color="#F3F3F3"  /></Link>
               <Avatar src="https://avatars.githubusercontent.com/u/42282908?v=4" alt="Jadson Santos" />
             </div>
           </Header>
-         ngoergieg
+         <Main>
+           <SectionInfo>
+            <div className="container-mini-main">
+              <Avatar src="https://avatars.githubusercontent.com/u/42282908?v=4" alt="Jadson Santos" />
+              <div className="container-mini-avatar" >
+                <p>Jadson dos Santos Silva</p>
+                <p><strong>gtjadsonsantos</strong></p>
+              </div>
+            </div>
+            <span className="container-mini-description" >
+              💻 Um garoto que programa
+              <br/>
+              23 ☀️
+              <br/>
+              Florianópolis 🏴‍☠️
+            </span>
+           </SectionInfo>
+           <SectionPosts>
+             Lista de posts
+           </SectionPosts>
+         </Main>
         </SectionMain>
         </Container>
   );
