@@ -1,17 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { BrowserRouter } from "react-router-dom";
+
 import './styles.css'
-import Login from './pages/Login/index';
+
+import Routes from './routes';
+
 
 import {AuthProvider} from './providers/auth'
 
 
 const App: React.FC = () => {
   return (
-    <AuthProvider>
-      <Login/>
-    </AuthProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes/>
+      </AuthProvider>
+    </BrowserRouter>
     )
 }
   
