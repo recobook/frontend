@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Alert from '@material-ui/lab/Alert';
+import { Link } from "react-router-dom";
 
 import { 
   Container,
@@ -69,7 +70,9 @@ const Login: React.FC = () => {
             O nosso objetivo é simples, em defender que bons momentos de
             vem ser compartilhados de uma forma simples.
           </p>
-          <Button backgroundColor="var(--white)" color="var(--red)" fontSize="18px" height="60px" width="223px"  >Criar Conta</Button>
+          <Link to="/signup" >
+            <Button backgroundColor="var(--white)" color="var(--red)" fontSize="18px" height="60px" width="223px"  >Criar Conta</Button>
+          </Link>
         </Section>
       </Container>
   );

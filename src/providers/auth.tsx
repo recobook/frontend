@@ -23,6 +23,7 @@ interface AuthResponseData {
 interface AuthContentData {
   data: AuthResponseData | null
   login(username:string,password:string): Promise<void>
+  signup(email:string,name:string,username:string,password:string,confirmPassword:string,photo:string,bio:string): Promise<{status: number;error: any;message: any}>
 } 
 
 export const AuthContext = createContext<AuthContentData>({} as AuthContentData );
@@ -52,10 +53,28 @@ export const AuthProvider: React.FC = ({ children }) => {
     }
   }
 
+  async function signup(email:string,name:string,username:string,password:string,confirmPassword:string,photo:string,bio:string) {
+    try {
+
+      
+      const {status,data} = await api_core.post(
+        `/user`,
+        {email,name,username,password,photo,bio},
+        {
+        validateStatus: (status) => { return status === 400 || status === 201} 
+      });
+      console.log({status,error:data.error,message:data.message})
+      return {status,error:data.error,message:data.message}
+    } catch (error) {
+      return {status: 400,error:true,message: error}
+    }
+  }
+
  return (
    <AuthContext.Provider value={{
      data,
-     login
+     login,
+     signup
     }}>
      {children}
    </AuthContext.Provider>
