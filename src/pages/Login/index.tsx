@@ -48,7 +48,7 @@ const Login: React.FC = () => {
             }
             <div className="area-options-login" >
               <div></div>
-              <a href="/esqueci_minha_senha">Esqueci Minha Senha</a>
+              <Link to="/forgoutPassword">Esqueci Minha Senha</Link>
             </div>
             <Button backgroundColor="var(--red)" color="var(--white)" fontSize="18px" height="60px" width="223px" >Entrar</Button>
           </Form>
