@@ -126,6 +126,7 @@ export const Header = styled.header`
 export const Logo = styled.img`
     width: 151px;
     height: 29px;
+    object-fit: scale-down;
 `
 export const Form = styled.form`
     width: 100%;
