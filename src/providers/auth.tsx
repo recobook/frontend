@@ -1,5 +1,5 @@
 import React, { createContext,useState } from 'react';
-
+import api_core from '../utils/api_core'
 interface User {
     id: number;
     name: string;
@@ -11,28 +11,52 @@ interface User {
 interface Data {
     error: boolean
     message: string
-    user: User
+    user: User | null
     token: string
 }
 
-interface AuthContentData {
+interface AuthResponseData {
   data: Data | null
-  login(username:string,password:string): Promise<void>
+  status: number
 } 
 
+interface AuthContentData {
+  data: AuthResponseData | null
+  login(username:string,password:string): Promise<void>
+} 
 
 export const AuthContext = createContext<AuthContentData>({} as AuthContentData );
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [data, setData] = useState<Data | null>(null)
-
+  const [data, setData] = useState<AuthResponseData | null>(null)
 
   async function login(username:string,password:string) {
-    console.log(username,password)
+    try {
+      const {status,data} = await api_core.post(`/auth`,{username,password});
+      
+      localStorage.setItem("data",JSON.stringify(data))
+      setData({data: data,status: status})
+      
+    } catch (error) {
+      localStorage.setItem("data",JSON.stringify(undefined))
+      setData({ 
+      data: {
+        error: true,
+        message: "Falhou em encontrar usuario, usuário ou senha estão errados" ,
+        token: "", 
+        user: null
+      }, 
+      status: 400
+    })
+      
+    }
   }
 
  return (
-   <AuthContext.Provider value={{data,login}}>
+   <AuthContext.Provider value={{
+     data,
+     login
+    }}>
      {children}
    </AuthContext.Provider>
  );

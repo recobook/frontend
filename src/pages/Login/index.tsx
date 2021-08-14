@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import Alert from '@material-ui/lab/Alert';
 
 import { 
   Container,
@@ -16,13 +15,16 @@ import {
 
 import {AuthContext} from '../../providers/auth';
 
-
 const Login: React.FC = () => {
 
-  const {login} = useContext(AuthContext)
-
+  const { login,data } = useContext(AuthContext)
+  const [firstTry,setFirstTry] = useState(true)
+  
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+
+    setFirstTry(false)
     const form = new FormData(event.currentTarget);
     const username = form.get("username") as string
     const password = form.get("password") as string
@@ -40,9 +42,12 @@ const Login: React.FC = () => {
           <Form onSubmit={onSubmit}>
             <TextField className="inputs" color="secondary" name="username" label="username" variant="outlined" required />
             <TextField className="inputs" color="secondary" name="password" label="Senha" type="password" variant="outlined" required/>
+            {
+              firstTry?<></>:<Alert severity={data?.status === 400 ? "error":"success"}>{data?.data?.message}</Alert>
+            }
             <div className="area-options-login" >
-              <FormControlLabel control={<Checkbox  />} label="Me lembre" />
-              <a href="/esqueci_minha_senha">privacidade</a>
+              <div></div>
+              <a href="/esqueci_minha_senha">Esqueci Minha Senha</a>
             </div>
             <Button backgroundColor="var(--red)" color="var(--white)" fontSize="18px" height="60px" width="223px" >Entrar</Button>
           </Form>
