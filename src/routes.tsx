@@ -4,12 +4,13 @@ import {Redirect, Route,Switch } from "react-router-dom";
 import Login from "./pages/Login";
 import CreateAccount from "./pages/CreateAccount";
 import ForgoutPassword from './pages/ForgoutPassword'
+import MainPage from './pages/MainPage'
 
 const PrivateRoute  = ({ component: Component, ...rest }:any) => (
   <Route
     {...rest}
     render={(props) =>
-      true ? (
+      localStorage.getItem("isAuthenticated") === 'true' ? (
         <Component {...props} />
       ) : (
         <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
@@ -19,13 +20,14 @@ const PrivateRoute  = ({ component: Component, ...rest }:any) => (
 )
 
 
+
 export default function Routes() {
   return (
       <Switch>
         <Route path="/login" exact component={Login} />  
         <Route path="/signup" exact component={CreateAccount} />  
         <Route path="/forgoutPassword" exact component={ForgoutPassword} />  
-        
+        <PrivateRoute path="/" exact component={MainPage}  />
       </Switch>
   );
 }

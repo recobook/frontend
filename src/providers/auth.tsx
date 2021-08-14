@@ -36,10 +36,11 @@ export const AuthProvider: React.FC = ({ children }) => {
       const {status,data} = await api_core.post(`/auth`,{username,password});
       
       localStorage.setItem("data",JSON.stringify(data))
+      localStorage.setItem("isAuthenticated","true")
       setData({data: data,status: status})
       
     } catch (error) {
-      localStorage.setItem("data",JSON.stringify(undefined))
+      localStorage.setItem("isAuthenticated","false")
       setData({ 
       data: {
         error: true,
@@ -69,7 +70,8 @@ export const AuthProvider: React.FC = ({ children }) => {
       return {status: 400,error:true,message: error}
     }
   }
-
+  
+  
  return (
    <AuthContext.Provider value={{
      data,
