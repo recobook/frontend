@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import InputBase from '@material-ui/core/InputBase';
 
@@ -19,7 +19,29 @@ import {
 } from './styles';
 import { Link } from 'react-router-dom';
 
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  username: string;
+  photo: string;
+  bio: string;
+}
+interface Data {
+  error: boolean
+  message: string
+  user: User | null
+  token: string
+}
+
 const MainPage: React.FC = () => {
+  const [data,setData] = useState<Data>()
+
+  useEffect(()=>{
+    const data = JSON.parse(`${localStorage.getItem("data")}`) as Data
+    setData(data)
+  },[])
 
   return (
       <Container>
@@ -36,24 +58,20 @@ const MainPage: React.FC = () => {
             </div>
             <div className="column-header">
               <Link to="/" ><FontAwesomeIcon className="icons" icon={faHome} color="#F3F3F3"  /></Link>
-              <Avatar src="https://avatars.githubusercontent.com/u/42282908?v=4" alt="Jadson Santos" />
+              <Avatar src={data?.user?.photo} alt="Jadson Santos" />
             </div>
           </Header>
          <Main>
            <SectionInfo>
             <div className="container-mini-main">
-              <Avatar src="https://avatars.githubusercontent.com/u/42282908?v=4" alt="Jadson Santos" />
+              <Avatar src={data?.user?.photo} alt="Jadson Santos" />
               <div className="container-mini-avatar" >
-                <p>Jadson dos Santos Silva</p>
-                <p><strong>gtjadsonsantos</strong></p>
+                <p>{data?.user?.name}</p>
+                <p><strong>{data?.user?.username}</strong></p>
               </div>
             </div>
             <span className="container-mini-description" >
-              💻 Um garoto que programa
-              <br/>
-              23 ☀️
-              <br/>
-              Florianópolis 🏴‍☠️
+              {data?.user?.bio}
             </span>
            </SectionInfo>
            <SectionPosts>

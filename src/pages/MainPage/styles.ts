@@ -124,14 +124,14 @@ export const SectionInfo = styled.section`
         height: 44px;
         display: flex;
         align-items: center;
-        justify-content: space-around;
+        justify-content: flex-start;
     }
     .container-mini-avatar {
         display: flex;
         font-size: 14px;
         flex-direction: column;
         align-items: center;
-
+        margin-left: 20px;
         p {
             width:  100%;
         }
@@ -140,6 +140,11 @@ export const SectionInfo = styled.section`
     .container-mini-description {
         width: 100%;
         margin-top: 10px;
+    }
+
+
+    @media only screen  and (max-width: 800px) {
+        display: none;
     }
 `
 export const SectionPosts = styled.section``
