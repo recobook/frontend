@@ -51,7 +51,8 @@ const MainPage: React.FC = () => {
     filter,
     setFilter,
     searchElos,
-    fetchMoreElos
+    fetchMoreElos,
+    registerLike
   } = useContext(EloContext)
 
   useEffect(()=>{
@@ -171,8 +172,8 @@ const MainPage: React.FC = () => {
                   <Post key={elo.id} id={`elo-${elo.id}`} >
                   <PostHeader>
                       <div style={{display: "flex",alignItems: "center",justifyContent: "flex-start",marginLeft:"10px"}}>
-                        <Avatar src={storage?.user?.photo} alt={storage?.user?.name} style={{marginRight:"10px"}} />
-                        <p>Jadson dos Santos Silva - em <strong>Florinópolis - Santa Catarina</strong></p>
+                        <Avatar src={elo.photo} alt={elo.name} style={{marginRight:"10px"}} />
+                        <p>{elo.name} - em <strong>{elo.address}</strong></p>
                       </div>
                       <FontAwesomeIcon className="icons" icon={faEllipsisV} color="#F3F3F3" style={{cursor: "pointer"}}  />
                   </PostHeader>
@@ -191,8 +192,8 @@ const MainPage: React.FC = () => {
                     </div>
                   </PostCarrossel>
                   <PostLikes>
-                  <FontAwesomeIcon className="icons" icon={faHeart} color="#DE1A1A" style={{cursor: "pointer"}}  />
-                  <span>50 <strong>Mil Likes</strong></span>
+                  <FontAwesomeIcon className="icons" icon={faHeart} color="#C4C4C4" style={{cursor: "pointer"}} onClick={()=> registerLike(elo.id)}  />
+                  <span>{elo.qtd_likes} <strong>{elo.qtd_likes > 1?"Likes":"Like"}</strong></span>
                   </PostLikes>
                   <PostComments>
                     <li>

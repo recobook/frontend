@@ -1,11 +1,17 @@
 import React, { createContext,useState } from 'react';
 import api_core from '../utils/api_core'
 interface Elo {
-    id: number;
-    address: string;
-    category: string;
-    description: string
-    id_user?: number
+    id:number,
+    description:string,
+    qtd_likes:number,
+    qtd_comments:number,
+    category:string,
+    address:string,
+    id_user?:number
+    name:string
+    username:string
+    photo:string
+    bio:string
 }
 interface EloParam {
   address: string;
@@ -28,7 +34,7 @@ interface EloContentData {
   filter:EloParam,
   searchElos(params:EloParam):Promise<void>
   fetchMoreElos(params:EloParam):Promise<void>
-
+  registerLike(id:number):Promise<void>
   setFilter(params:EloParam): void
 } 
 
@@ -50,7 +56,7 @@ export const EloProvider: React.FC = ({ children }) => {
   async function searchElos(params:EloParam){
     
     const storage = JSON.parse(`${localStorage.getItem("data")}`) as { error: boolean,message: string,user: {id:number,name:string,email:string,username:string,photo:string},token: string}
-
+    
     const {data} = await api_core.get<EloResponseData>("/elos",
     {
       params,
@@ -96,6 +102,20 @@ export const EloProvider: React.FC = ({ children }) => {
 
   }
 
+  
+  async function registerLike(id_elo:number){
+    const storage = JSON.parse(`${localStorage.getItem("data")}`) as { error: boolean,message: string,user: {id:number,name:string,email:string,username:string,photo:string},token: string}
+    
+    await api_core.post("/like",{
+      id_user: storage.user.id,
+      id_elo: id_elo
+    },{
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${storage.token}`
+      }
+    })
+  }
 
  return (
    <EloContext.Provider value={{
@@ -103,7 +123,8 @@ export const EloProvider: React.FC = ({ children }) => {
      filter,
      setFilter,
      searchElos,
-     fetchMoreElos
+     fetchMoreElos,
+     registerLike
      }}>
      {children}
    </EloContext.Provider>
