@@ -20,7 +20,7 @@ const CreateAccount: React.FC = () => {
 
   const { signup } = useContext(AuthContext)
   const [firstTry,setFirstTry] = useState(true)
-  const [error,setError] = useState(false)
+  const [,setError] = useState(false)
   const [message,setMessage] = useState("")
   const [status,setStatus] = useState(200)
   

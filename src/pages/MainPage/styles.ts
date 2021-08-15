@@ -150,7 +150,7 @@ export const SectionInfo = styled.section`
 `
 export const SectionPosts = styled.section`
     width: 620px;
-    height: 100%;
+    height: 854px;
     overflow-y: scroll;
 
     ::-webkit-scrollbar {
@@ -197,6 +197,7 @@ export const Post = styled.div `
     flex-direction: column;
     width: 602px;
     border: 1px solid #D6D6D6;
+    margin-top: 30px;
 
     @media only screen and (max-width: 800px) {
         width: 100%;

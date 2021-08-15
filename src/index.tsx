@@ -9,13 +9,16 @@ import Routes from './routes';
 
 
 import {AuthProvider} from './providers/auth'
+import {EloProvider} from './providers/elos'
 
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Routes/>
+        <EloProvider>
+          <Routes/>
+        </EloProvider>
       </AuthProvider>
     </BrowserRouter>
     )
