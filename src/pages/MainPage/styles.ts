@@ -67,9 +67,10 @@ export const SectionMain = styled.div<SectionMainProps>`
 
 export const Header = styled.header`
     width: 100%;
-    height: 70px;
+    height: 50px;
     padding-left: 30px;
     margin-bottom: 15px;
+    margin-top: 15px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -113,7 +114,7 @@ export const Main = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
 `
 export const SectionInfo = styled.section`
     display: flex;
@@ -147,4 +148,116 @@ export const SectionInfo = styled.section`
         display: none;
     }
 `
-export const SectionPosts = styled.section``
+export const SectionPosts = styled.section`
+    width: 620px;
+    height: 100%;
+    overflow-y: scroll;
+
+    ::-webkit-scrollbar {
+        width: 0px;
+    }
+    .container-create-new-elo {
+        width: 602px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #F3F3F3;
+        border-radius: 0.5em;
+        margin-bottom: 30px;
+
+        @media only screen and (max-width: 800px) {
+            width: 100%;
+        }
+    }
+    .input-create-new-elo {
+        border: 1px solid #D6D6D6;
+        width: 85%;
+        height: 33px;
+        border-radius: 0.5em;
+        padding-left: 10px;
+        margin-left: 10px;
+        color: #9D9D9D;
+        background-color: #E2E2E2;
+        border-radius: 0.5em;
+
+        @media only screen and (max-width: 800px) {
+            width: 80%;
+        }
+    }
+
+    @media only screen and (max-width: 800px) {
+            width: 90%;
+    }
+    
+
+`
+export const Post = styled.div `
+    display: flex;
+    flex-direction: column;
+    width: 602px;
+    border: 1px solid #D6D6D6;
+
+    @media only screen and (max-width: 800px) {
+        width: 100%;
+    }
+` 
+export const PostHeader = styled.header`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    p {
+        font-size: 14px;
+    }
+    height: 60px;
+    .icons {
+        width: 32px;
+        height: 32px;
+    }
+`
+export const PostCarrossel = styled.div`
+    width: 100%;
+    max-width: 602px;
+    height: 614px;
+    display: flex;
+    overflow-x: scroll;
+
+    ::-webkit-scrollbar {
+        width: 0px;
+    }
+
+    img {
+        max-width: 616px;
+        height: 100%;
+
+        @media only screen and (max-width: 800px) {
+            max-width: 400px;
+            object-fit: scale-down;
+            height: 100%;
+        }
+    }
+ 
+`
+export const PostLikes = styled.div`
+    width: 100%;
+    height: 37;
+    flex-direction: column;
+    padding-left:10px;
+` 
+export const PostComments = styled.div`
+    width: 100%;
+    height: 66px;
+    flex-direction: column;
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+        width: 0px;
+    }
+    
+` 
+export const PostEditorComment = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+`
