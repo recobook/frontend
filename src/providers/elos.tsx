@@ -24,7 +24,7 @@ interface EloResponseData {
 } 
 
 interface EloContentData {
-  data: EloResponseData | null
+  data: EloResponseData 
   filter:EloParam,
   searchElos(params:EloParam):Promise<void>
   fetchMoreElos(params:EloParam):Promise<void>

@@ -59,11 +59,54 @@ const MainPage: React.FC = () => {
     setStorage(
       JSON.parse(`${localStorage.getItem("data")}`) as Data
     )
+
+    setFilter({
+      address: `%${filter.address}%`,
+      qtd_comments: filter.qtd_comments,
+      qtd_likes: filter.qtd_likes,
+      category: filter.category,
+      description: `%${filter.description}%`,
+      offset: filter.offset
+    })
+
+    searchElos(filter).then(()=>{})
   },[])
+
 
   useEffect(()=>{
+    let observer = new IntersectionObserver((entries)=>{
+      if(entries.some(entry => entry.isIntersecting)){
+        setFilter({
+          address: `%${filter.address}%`,
+          qtd_comments: filter.qtd_comments,
+          qtd_likes: filter.qtd_likes,
+          category: filter.category,
+          description: `%${filter.description}%`,
+          offset: filter.offset + 1
+        })
+  
+  
+        fetchMoreElos({
+          address: `%${filter.address}%`,
+          qtd_comments: filter.qtd_comments,
+          qtd_likes: filter.qtd_likes,
+          category: filter.category,
+          description: `%${filter.description}%`,
+          offset: filter.offset
+        }).then(() =>{})
 
-  },[])
+      }
+
+    });
+    const target = document.querySelector(`#elo-${data.elos[data?.elos.length - 1]?.id}`)
+    
+    if(target?.isConnected){
+      observer.observe(target);
+    }
+    return () => observer.disconnect()
+
+  },[data.elos])
+
 
 
   async function handleInputSearch (event:React.ChangeEvent<HTMLInputElement>){
@@ -124,8 +167,8 @@ const MainPage: React.FC = () => {
 
               {
                 data?.elos.map((elo,index,array) =>(
-
-                  <Post key={elo.id} id={`${elo.id}`} >
+                    
+                  <Post key={elo.id} id={`elo-${elo.id}`} >
                   <PostHeader>
                       <div style={{display: "flex",alignItems: "center",justifyContent: "flex-start",marginLeft:"10px"}}>
                         <Avatar src={storage?.user?.photo} alt={storage?.user?.name} style={{marginRight:"10px"}} />
