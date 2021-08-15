@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import InputBase from '@material-ui/core/InputBase';
+import Divider from '@material-ui/core/Divider';
 
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFilter,faHome,faPaperPlane,faEllipsisV } from '@fortawesome/free-solid-svg-icons'
+import { faFilter,faHome,faPaperPlane,faEllipsisV,faHeart } from '@fortawesome/free-solid-svg-icons'
 
 
 import { 
@@ -108,10 +109,41 @@ const MainPage: React.FC = () => {
                  <div >
                     <img src={data?.user?.photo} alt="" />
                  </div>
+                 <div>
+                    <video controls width="250" src="https://www.w3schools.com/html/mov_bbb.mp4" />
+                 </div>
                </PostCarrossel>
-               <PostLikes></PostLikes>
-               <PostComments></PostComments>
-               <PostEditorComment></PostEditorComment>
+               <PostLikes>
+               <FontAwesomeIcon className="icons" icon={faHeart} color="#DE1A1A" style={{cursor: "pointer"}}  />
+               <span>50 <strong>Mil Likes</strong></span>
+               </PostLikes>
+               <PostComments>
+                 <li>
+                   <strong>gtjadsonsantos</strong>
+                   <p>😍</p>
+                 </li>
+                 <li>
+                   <strong>brufarias2</strong>
+                   <p>Eu amei conhecer esse lugar ✨</p>
+                 </li>
+                 <li>
+                   <strong>gaucho516</strong>
+                   <p>Bah gurizada, que baita esse lugar</p>
+                 </li>
+                 <li>
+                   <strong>manezinho</strong>
+                   <p>Que baita esse lugar feio.</p>
+                 </li>
+               </PostComments>
+               <Divider/>
+               <PostEditorComment>
+               <InputBase
+                className="input-editor-comment"
+                placeholder="Interaja com este elo"
+                inputProps={{ 'aria-label': 'search google maps' }}
+              />
+               <FontAwesomeIcon className="icons" icon={faPaperPlane} color="#EBEBEB" style={{cursor: "pointer"}}  />
+               </PostEditorComment>
              </Post>
            </SectionPosts>
          </Main>
