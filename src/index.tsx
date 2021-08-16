@@ -10,6 +10,7 @@ import Routes from './routes';
 
 import {AuthProvider} from './providers/auth'
 import {EloProvider} from './providers/elos'
+import {LikeProvider} from './providers/likes'
 
 
 const App: React.FC = () => {
@@ -17,7 +18,9 @@ const App: React.FC = () => {
     <BrowserRouter>
       <AuthProvider>
         <EloProvider>
-          <Routes/>
+          <LikeProvider>
+            <Routes/>
+          </LikeProvider>
         </EloProvider>
       </AuthProvider>
     </BrowserRouter>

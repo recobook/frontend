@@ -27,7 +27,6 @@ const CreateAccount: React.FC = () => {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setFirstTry(false)
     const form = new FormData(event.currentTarget);
     const email = form.get("email") as string
     const name = form.get("name") as string
@@ -36,7 +35,7 @@ const CreateAccount: React.FC = () => {
     const confirmPassword = form.get("confirm-password") as string
     const photo =  "http://0.0.0.0:1993/0.png"
     const bio = ""
-
+    
     const {error,message,status} =await signup(
       email,
       name,
@@ -45,11 +44,12 @@ const CreateAccount: React.FC = () => {
       confirmPassword,
       photo,
       bio
-    );
-    
-    setError(error)
-    setMessage(message)
-    setStatus(status)    
+      );
+      
+      setError(error)
+      setMessage(message)
+      setStatus(status)    
+      setFirstTry(false)
   }
 
   return (

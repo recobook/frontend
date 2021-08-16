@@ -1,5 +1,8 @@
 import React, { createContext,useState } from 'react';
+
 import api_core from '../utils/api_core'
+import {storage} from '../utils/storage'
+
 interface Elo {
     id:number,
     description:string,
@@ -34,7 +37,6 @@ interface EloContentData {
   filter:EloParam,
   searchElos(params:EloParam):Promise<void>
   fetchMoreElos(params:EloParam):Promise<void>
-  registerLike(id:number):Promise<void>
   setFilter(params:EloParam): void
 } 
 
@@ -55,14 +57,13 @@ export const EloProvider: React.FC = ({ children }) => {
 
   async function searchElos(params:EloParam){
     
-    const storage = JSON.parse(`${localStorage.getItem("data")}`) as { error: boolean,message: string,user: {id:number,name:string,email:string,username:string,photo:string},token: string}
     
     const {data} = await api_core.get<EloResponseData>("/elos",
     {
       params,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `${storage.token}`
+        'Authorization': `${storage.data.token}`
       }
     }
     )
@@ -76,14 +77,13 @@ export const EloProvider: React.FC = ({ children }) => {
 
   async function fetchMoreElos(params:EloParam){
     
-    const storage = JSON.parse(`${localStorage.getItem("data")}`) as { error: boolean,message: string,user: {id:number,name:string,email:string,username:string,photo:string},token: string}
 
     const {data} = await api_core.get<EloResponseData>("/elos",
     {
       params,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `${storage.token}`
+        'Authorization': `${storage.data.token}`
       }
       }
     )
@@ -101,30 +101,14 @@ export const EloProvider: React.FC = ({ children }) => {
     setMessage(data.message)
 
   }
-
-  
-  async function registerLike(id_elo:number){
-    const storage = JSON.parse(`${localStorage.getItem("data")}`) as { error: boolean,message: string,user: {id:number,name:string,email:string,username:string,photo:string},token: string}
-    
-    await api_core.post("/like",{
-      id_user: storage.user.id,
-      id_elo: id_elo
-    },{
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `${storage.token}`
-      }
-    })
-  }
-
+ 
  return (
    <EloContext.Provider value={{
      data: {elos,error,message},
      filter,
      setFilter,
      searchElos,
-     fetchMoreElos,
-     registerLike
+     fetchMoreElos
      }}>
      {children}
    </EloContext.Provider>

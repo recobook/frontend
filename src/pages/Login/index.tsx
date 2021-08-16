@@ -25,12 +25,12 @@ const Login: React.FC = () => {
     event.preventDefault();
 
 
-    setFirstTry(false)
     const form = new FormData(event.currentTarget);
     const username = form.get("username") as string
     const password = form.get("password") as string
-
+    
     await login(username,password);
+    setFirstTry(false)
 
     if(localStorage.getItem("isAuthenticated") === "true"){
       setTimeout(() => {

@@ -64,7 +64,6 @@ export const AuthProvider: React.FC = ({ children }) => {
         {
         validateStatus: (status) => { return status === 400 || status === 201} 
       });
-      console.log({status,error:data.error,message:data.message})
       return {status,error:data.error,message:data.message}
     } catch (error) {
       return {status: 400,error:true,message: error}

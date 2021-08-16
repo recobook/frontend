@@ -27,6 +27,7 @@ import {
 import { Link } from 'react-router-dom';
 
 import {EloContext} from "../../providers/elos"
+import {LikeContext} from "../../providers/likes"
 
 
 interface User {
@@ -51,9 +52,10 @@ const MainPage: React.FC = () => {
     filter,
     setFilter,
     searchElos,
-    fetchMoreElos,
-    registerLike
+    fetchMoreElos
   } = useContext(EloContext)
+
+  const {registerLike} = useContext(LikeContext)
 
   useEffect(()=>{
     
@@ -109,7 +111,7 @@ const MainPage: React.FC = () => {
   },[data.elos])
 
 
-
+  
   async function handleInputSearch (event:React.ChangeEvent<HTMLInputElement>){
     setFilter({
         address: `%${event.target.value}%`,

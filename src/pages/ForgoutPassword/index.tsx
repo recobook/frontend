@@ -23,7 +23,6 @@ const ForgoutPassword: React.FC = () => {
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    setFirstTry(false)
     const form = new FormData(event.currentTarget);
     const email = form.get("email") as string
     
@@ -33,6 +32,7 @@ const ForgoutPassword: React.FC = () => {
     
     setMessage(data.message)
     setStatus(status)
+    setFirstTry(false)
 
   }
 
