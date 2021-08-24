@@ -29,6 +29,9 @@ import { Link } from 'react-router-dom';
 import {EloContext} from "../../providers/elos"
 import {LikeContext} from "../../providers/likes"
 
+import Modal from '../../components/Modal'
+import ModalCreateElo from '../../components/ModalCreateElo'
+
 
 interface User {
   id: number;
@@ -46,6 +49,8 @@ interface Data {
 }
 
 const MainPage: React.FC = () => {
+  const [visibleModal, setVisibleModal] = useState(false);
+  
   const [storage,setStorage] = useState<Data>()
   const {
     data,
@@ -162,6 +167,7 @@ const MainPage: React.FC = () => {
              <div className="container-create-new-elo" >
              <Avatar src={storage?.user?.photo} alt={storage?.user?.name} />
              <InputBase
+                onFocus={()=>{setVisibleModal(!visibleModal)}}
                 className="input-create-new-elo"
                 placeholder={`Qual o novo elo, ${storage?.user?.name.split(" ")[0]} ?`}
                 inputProps={{ 'aria-label': 'search google maps' }}
@@ -230,6 +236,9 @@ const MainPage: React.FC = () => {
            </SectionPosts>
          </Main>
         </SectionMain>
+        <Modal visible={visibleModal} >
+          <ModalCreateElo />
+        </Modal>
         </Container>
   );
 }
