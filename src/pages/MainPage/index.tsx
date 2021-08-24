@@ -30,7 +30,7 @@ import {EloContext} from "../../providers/elos"
 import {LikeContext} from "../../providers/likes"
 
 import Modal from '../../components/Modal'
-import ModalCreateElo from '../../components/ModalCreateElo'
+import ModalCreateElo from '../../components/ModalUpdateElo'
 
 
 interface User {
@@ -237,7 +237,7 @@ const MainPage: React.FC = () => {
          </Main>
         </SectionMain>
         <Modal visible={visibleModal} >
-          <ModalCreateElo />
+          
         </Modal>
         </Container>
   );
