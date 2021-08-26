@@ -14,3 +14,4 @@ const Modal: React.FC<PropsModal> = ({children,visible}) => {
 }
 
 export default Modal;
+
