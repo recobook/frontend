@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimesCircle,faFileImage,faFileVideo,faMapMarkedAlt,faDollarSign } from '@fortawesome/free-solid-svg-icons'
 
@@ -15,22 +15,14 @@ import {
     Icon
 } from './styles';
 
-import {ModalContext} from "../../providers/modal"
-import ModalDefinitionCategory from '../ModalDefinitionCategory';
-import ModalSearchAddress from '../ModalSearchAddress';
-
-
-
-
 const ModalCreateElo: React.FC = () => {
 
-    const { setVisible,setModal } = useContext(ModalContext)
     
   return(
     <Container>
         <Header>
             <Title>Criar um novo Elo</Title>
-            <FontAwesomeIcon className="icons" icon={faTimesCircle}  color="#5A5A5A" onClick={() => {setVisible(false)}} />
+            <FontAwesomeIcon className="icons" icon={faTimesCircle}  color="#5A5A5A" onClick={() => {}} />
         </Header>
         <Textarea placeholder="Nos conte sobre sua experiência ?" rows={50} required />
         <AreaActions >
@@ -51,8 +43,8 @@ const ModalCreateElo: React.FC = () => {
                         <input id="input-video" type="file"  style={{display: "none"}} multiple />
                     </Icon>
 
-                    <FontAwesomeIcon className="icons" icon={faMapMarkedAlt} onClick={() => {setModal(ModalDefinitionCategory)}}  color="#FF4156" />
-                    <FontAwesomeIcon className="icons" icon={faDollarSign}   onClick={() => {setModal(ModalSearchAddress)}}  color="#323557" />
+                    <FontAwesomeIcon className="icons" icon={faMapMarkedAlt} onClick={() => {}}  color="#FF4156" />
+                    <FontAwesomeIcon className="icons" icon={faDollarSign}   onClick={() => {}}  color="#323557" />
                 </ContainerIcons>
             </ContainerOptions>
             <Button>Elo</Button>

@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios'
 
 import InputBase from '@material-ui/core/InputBase';
 
@@ -11,7 +10,6 @@ import {
     Header,
     Title,
 } from './styles';
-
 
 const ModalSearchAddress: React.FC = () => {
 
