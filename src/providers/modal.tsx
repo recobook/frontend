@@ -22,3 +22,8 @@ export const ModalProvider: React.FC = ({ children }) => {
 };
 
 
+
+export function useModal() {
+  const context = React.useContext(ModalContext)
+  return context
+}

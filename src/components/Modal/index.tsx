@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ModalContext } from '../../providers/modal';
 
 import { Container } from './styles';
 
-interface PropsModal {
-  visible: boolean;
-}
-const Modal: React.FC<PropsModal> = ({children,visible}) => {
+
+const Modal: React.FC = () => {
+  const {visible,modal} = useContext(ModalContext)
+
   return (
   <Container visible={visible} >
-    {children}
+    {modal}
   </Container>
   );
 }
 
 export default Modal;
+
 

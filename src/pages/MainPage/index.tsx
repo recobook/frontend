@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import SectionInfo from '../../components/SectionInfo';
 import SectionPosts from '../../components/SectionPosts';
@@ -10,12 +10,9 @@ import {
   Main
 } from './styles';
 
-import {ModalContext} from "../../providers/modal"
 import Modal from '../../components/Modal'
 
-
 const MainPage: React.FC = () => {
-  const {visible,modal} = useContext(ModalContext)
 
   return (
       <Container>
@@ -26,7 +23,7 @@ const MainPage: React.FC = () => {
            <SectionPosts />
          </Main>
         </SectionMain>
-        <Modal visible={visible}> {modal} </Modal>
+        <Modal />
         </Container>
   );
 }

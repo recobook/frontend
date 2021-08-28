@@ -86,14 +86,14 @@ const SectionPosts: React.FC = () => {
   
     },[data.elos])
 
-
+  
   return (
     <Container>
       <div className="container-create-new-elo">
         <Avatar src={storage?.user?.photo} alt={storage?.user?.name} />
         <InputBase
           onFocus={() => {
-            setModal(ModalCreateElo);
+            setModal(ModalCreateElo)
             setVisible(true);
           }}
           className="input-create-new-elo"
