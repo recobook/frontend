@@ -10,6 +10,8 @@ import { Container } from "./styles";
 import Logo from '../Logo'
 import Avatar from '../Avatar'
 import { EloContext } from "../../providers/elos";
+import { ModalContext } from "../../providers/modal";
+import ModalFilter from "../ModalFilter";
 
 interface User {
     id: number;
@@ -37,6 +39,8 @@ const Header: React.FC = () => {
       setFilter,
       searchElos
     } = React.useContext(EloContext)
+
+    const {setModal,setVisible} = React.useContext(ModalContext)
 
     async function handleInputSearch (event:React.ChangeEvent<HTMLInputElement>){
       setFilter({
@@ -83,7 +87,10 @@ const Header: React.FC = () => {
           className="icons icon-filter"
           icon={faFilter}
           color="#CB6161"
-          onClick={() => {}}
+          onClick={() => {
+            setModal(ModalFilter)
+            setVisible(true)
+          }}
         />
       </div>
       <div className="column-header">
