@@ -131,12 +131,27 @@ export const PostComments = styled.div`
         list-style-type: none;
         display: flex;
         padding-left: 10px;
+        justify-content: space-between;
+       padding-right: 10px;    
+    }
+
+    li > .icons {
+        display: none;
+    }
+
+    li:hover > .icons {
+        display: block;
     }
 
     li p {
         padding-left: 10px;
         margin-top: 2px;
         text-align: justify;
+    }
+
+    li div {
+        display: flex;
+    
     }
   
 ` 

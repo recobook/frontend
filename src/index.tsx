@@ -11,6 +11,7 @@ import { AuthProvider } from "./providers/auth";
 import { ModalProvider } from "./providers/modal";
 import { EloProvider } from "./providers/elos";
 import { LikeProvider } from "./providers/likes";
+import { CommentProvider } from "./providers/comments";
 
 const App: React.FC = () => {
   return (
@@ -18,9 +19,11 @@ const App: React.FC = () => {
       <AuthProvider>
           <EloProvider>
             <LikeProvider>
-            <ModalProvider>
-              <Routes />
-              </ModalProvider>
+              <CommentProvider>
+                <ModalProvider>
+                  <Routes />
+                </ModalProvider>
+              </CommentProvider>
             </LikeProvider>
           </EloProvider>
       </AuthProvider>

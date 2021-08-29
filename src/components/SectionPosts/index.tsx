@@ -5,7 +5,7 @@ import Divider from '@material-ui/core/Divider';
 
 import Avatar from '../../components/Avatar'
 
-import {faPaperPlane,faEllipsisV,faHeart } from '@fortawesome/free-solid-svg-icons'
+import {faPaperPlane,faEllipsisV,faHeart,faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { 
@@ -24,6 +24,8 @@ import {LikeContext} from '../../providers/likes'
 
 import ModalCreateElo from '../../components/ModalCreateElo'
 import api_core from "../../utils/api_core";
+import ModalOptionsComment from "../ModalOptionsCommnet";
+import { CommentContext } from "../../providers/comments";
 
 
 interface User {
@@ -47,9 +49,8 @@ const SectionPosts: React.FC = () => {
     const { setVisible, setModal } = React.useContext(ModalContext)
     const { data,filter,setFilter,fetchMoreElos} = React.useContext(EloContext)
     const { registerLike} = React.useContext(LikeContext)
-    
-    const [comment,setComment] = useState<{content:string,id_elo:number,id_user: number}>()
-    
+    const { comment,comments,setComment,listComments,listMoreComments} = React.useContext(CommentContext)
+        
     useEffect(()=>{
         setStorage(JSON.parse(`${localStorage.getItem("data")}`) as Data)
     },[])
@@ -89,10 +90,9 @@ const SectionPosts: React.FC = () => {
   
     },[data.elos])
 
-
     async function sendComment() {
-      const {data} = await api_core.post<{error: boolean,message: string}>("/comment",comment,{headers: {Authorization: `${storage?.token}`}})
-      console.log(data)
+      await api_core.post<{error: boolean,message: string}>("/comment",comment,{headers: {Authorization: `${storage?.token}`}})
+      await listMoreComments({id_elo: comment.id_elo,offset: 0})
     }
   
   return (
@@ -113,7 +113,7 @@ const SectionPosts: React.FC = () => {
       </div>
 
       {data?.elos.map((elo, index, array) => (
-        <Post key={elo.id} id={`elo-${elo.id}`}>
+        <Post key={elo.id} id={`elo-${elo.id}`} onLoad={async ()=> {await listComments({id_elo: elo.id,offset: 0})}} >
           <PostHeader>
             <div
               style={{
@@ -171,29 +171,28 @@ const SectionPosts: React.FC = () => {
             </span>
           </PostLikes>
           <PostComments>
-            <li>
-              <strong>gtjadsonsantos</strong>
-              <p>😍</p>
-            </li>
-            <li>
-              <strong>brufarias2</strong>
-              <p>Eu amei conhecer esse lugar ✨</p>
-            </li>
-            <li>
-              <strong>gaucho516</strong>
-              <p>Bah gurizada, que baita esse lugar</p>
-            </li>
-            <li>
-              <strong>manezinho</strong>
-              <p>Que baita esse lugar feio.</p>
-            </li>
+              {
+                comments.get(elo.id)?.map((comment,index)=>(
+                <li key={index}>
+                  <div>
+                    <strong>{comment.username}</strong>
+                    <p>{comment.content}</p>
+                  </div>
+                  <FontAwesomeIcon className="icons" icon={faEllipsisH} color="#F3F3F3" style={{ cursor: "pointer" }}  onClick={()=> {
+                      setModal(ModalOptionsComment)
+                      setVisible(true);
+                      setComment({id: comment.id,content: comment.content,id_elo: elo.id,id_user: Number(storage?.user?.id)})
+                  }} />
+                </li>
+                ))
+              }
           </PostComments>
           <Divider />
           <PostEditorComment>
             <InputBase
               className="input-editor-comment"
               placeholder="Interaja com este elo"
-              onChange={event => setComment({content: event.target.value,id_elo: elo.id,id_user: Number(storage?.user?.id)})}
+              onChange={event => setComment({id: 0,content: event.target.value,id_elo: elo.id,id_user: Number(storage?.user?.id)})}
               inputProps={{ "aria-label": "search google maps" }}
             />
             <FontAwesomeIcon
