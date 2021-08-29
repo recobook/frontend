@@ -23,6 +23,7 @@ import {EloContext} from "../../providers/elos"
 import {LikeContext} from '../../providers/likes'
 
 import ModalCreateElo from '../../components/ModalCreateElo'
+import api_core from "../../utils/api_core";
 
 
 interface User {
@@ -32,21 +33,23 @@ interface User {
     username: string;
     photo: string;
     bio: string;
-  }
-  interface Data {
+}
+interface Data {
     error: boolean
     message: string
     user: User | null
     token: string
-  }
+}
 
 const SectionPosts: React.FC = () => {
 
     const [storage,setStorage] = useState<Data>()
     const { setVisible, setModal } = React.useContext(ModalContext)
     const { data,filter,setFilter,fetchMoreElos} = React.useContext(EloContext)
-    const {registerLike} = React.useContext(LikeContext)
-
+    const { registerLike} = React.useContext(LikeContext)
+    
+    const [comment,setComment] = useState<{content:string,id_elo:number,id_user: number}>()
+    
     useEffect(()=>{
         setStorage(JSON.parse(`${localStorage.getItem("data")}`) as Data)
     },[])
@@ -86,6 +89,11 @@ const SectionPosts: React.FC = () => {
   
     },[data.elos])
 
+
+    async function sendComment() {
+      const {data} = await api_core.post<{error: boolean,message: string}>("/comment",comment,{headers: {Authorization: `${storage?.token}`}})
+      console.log(data)
+    }
   
   return (
     <Container>
@@ -185,6 +193,7 @@ const SectionPosts: React.FC = () => {
             <InputBase
               className="input-editor-comment"
               placeholder="Interaja com este elo"
+              onChange={event => setComment({content: event.target.value,id_elo: elo.id,id_user: Number(storage?.user?.id)})}
               inputProps={{ "aria-label": "search google maps" }}
             />
             <FontAwesomeIcon
@@ -192,7 +201,9 @@ const SectionPosts: React.FC = () => {
               icon={faPaperPlane}
               color="#EBEBEB"
               style={{ cursor: "pointer" }}
+              onClick={sendComment}
             />
+
           </PostEditorComment>
         </Post>
       ))}
