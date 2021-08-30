@@ -26,6 +26,7 @@ import ModalCreateElo from '../../components/ModalCreateElo'
 import api_core from "../../utils/api_core";
 import ModalOptionsComment from "../ModalOptionsCommnet";
 import { CommentContext } from "../../providers/comments";
+import { storage } from "../../utils/storage";
 
 
 interface User {
@@ -44,16 +45,14 @@ interface Data {
 }
 
 const SectionPosts: React.FC = () => {
-
-    const [storage,setStorage] = useState<Data>()
     const { setVisible, setModal } = React.useContext(ModalContext)
     const { data,filter,setFilter,fetchMoreElos} = React.useContext(EloContext)
     const { registerLike} = React.useContext(LikeContext)
     const { comment,comments,setComment,listComments,listMoreComments} = React.useContext(CommentContext)
-        
-    useEffect(()=>{
-        setStorage(JSON.parse(`${localStorage.getItem("data")}`) as Data)
-    },[])
+
+    const [videos, setVideos] = React.useState(new Map<number,{"id": number,"url": string,"id_elo": number}[]>());
+    const [images, setImages] = React.useState(new Map<number,{"id": number,"url": string,"id_elo": number}[]>());
+
 
     useEffect(()=>{
       let observer = new IntersectionObserver((entries)=>{
@@ -91,14 +90,29 @@ const SectionPosts: React.FC = () => {
     },[data.elos])
 
     async function sendComment() {
-      await api_core.post<{error: boolean,message: string}>("/comment",comment,{headers: {Authorization: `${storage?.token}`}})
+      await api_core.post<{error: boolean,message: string}>("/comment",comment,{headers: {Authorization: `${storage.data.token}`}})
       await listMoreComments({id_elo: comment.id_elo,offset: 0})
     }
-  
+
+          
+  async function listVideos(params:{id_elo:number}) {
+    const {data} = await api_core.get<{ error: boolean, message: string, videos: [{id: number,url: string,id_elo: number }]}>("/videos",{params,headers: {Authorization: `${storage.data.token}`}})
+    console.log(data.videos)
+    videos.set(params.id_elo,data.videos)
+    setVideos(videos) 
+  }
+  async function listImages(params:{id_elo:number}) {
+    const {data} = await api_core.get<{ error: boolean, message: string, images: [{id: number,url: string,id_elo: number }]}>("/images",{params,headers: {Authorization: `${storage.data.token}`}})
+    console.log(data.images)
+    images.set(params.id_elo,data.images)
+    setImages(images) 
+  }
+
+
   return (
     <Container>
       <div className="container-create-new-elo">
-        <Avatar src={storage?.user?.photo} alt={storage?.user?.name} />
+        <Avatar src={storage.data.user.photo} alt={storage.data.user.name} />
         <InputBase
           onFocus={() => {
             setModal(ModalCreateElo)
@@ -106,14 +120,18 @@ const SectionPosts: React.FC = () => {
           }}
           className="input-create-new-elo"
           placeholder={`Qual o novo elo, ${
-            storage?.user?.name.split(" ")[0]
+            storage.data.user.name.split(" ")[0]
           } ?`}
           inputProps={{ "aria-label": "search google maps" }}
         />
       </div>
 
       {data?.elos.map((elo, index, array) => (
-        <Post key={elo.id} id={`elo-${elo.id}`} onLoad={async ()=> {await listComments({id_elo: elo.id,offset: 0})}} >
+        <Post key={elo.id} id={`elo-${elo.id}`} onLoad={async ()=> {
+          await listComments({id_elo: elo.id,offset: 0})
+          await listVideos({id_elo: elo.id})
+          await listImages({id_elo: elo.id})
+          }} >
           <PostHeader>
             <div
               style={{
@@ -140,22 +158,26 @@ const SectionPosts: React.FC = () => {
             />
           </PostHeader>
           <PostCarrossel>
-            <div>
-              <img src={storage?.user?.photo} alt="" />
-            </div>
-            <div>
-              <img src={storage?.user?.photo} alt="" />
-            </div>
-            <div>
-              <img src={storage?.user?.photo} alt="" />
-            </div>
-            <div>
-              <video
-                controls
-                width="250"
-                src="https://www.w3schools.com/html/mov_bbb.mp4"
-              />
-            </div>
+            {
+              images.get(elo.id)?.map(image => (
+                <div>
+                  <img src={image.url} alt="" />
+                </div>
+              ))
+            }
+            {
+              videos.get(elo.id)?.map(video => (
+              <div>
+                <video
+                  controls
+                  width="250"
+                  src={video.url}
+                />
+              </div>
+              ))
+            }
+    
+  
           </PostCarrossel>
           <PostLikes>
             <FontAwesomeIcon
@@ -179,12 +201,12 @@ const SectionPosts: React.FC = () => {
                     <p>{comment.content}</p>
                   </div>
                   {
-                    comment.id_user === Number(storage?.user?.id)? 
+                    comment.id_user === Number(storage.data.user.id)? 
 
                     <FontAwesomeIcon className="icons" icon={faEllipsisH} color="#F3F3F3" style={{ cursor: "pointer" }}  onClick={()=> {
                       setModal(ModalOptionsComment)
                       setVisible(true);
-                      setComment({id: comment.id,content: comment.content,id_elo: elo.id,id_user: Number(storage?.user?.id)})
+                      setComment({id: comment.id,content: comment.content,id_elo: elo.id,id_user: Number(storage.data.user.id)})
                     }} />:<></>
                   }
               
@@ -197,7 +219,7 @@ const SectionPosts: React.FC = () => {
             <InputBase
               className="input-editor-comment"
               placeholder="Interaja com este elo"
-              onChange={event => setComment({id: 0,content: event.target.value,id_elo: elo.id,id_user: Number(storage?.user?.id)})}
+              onChange={event => setComment({id: 0,content: event.target.value,id_elo: elo.id,id_user: Number(storage.data.user.id)})}
               inputProps={{ "aria-label": "search google maps" }}
             />
             <FontAwesomeIcon
