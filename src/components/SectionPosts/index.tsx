@@ -178,11 +178,16 @@ const SectionPosts: React.FC = () => {
                     <strong>{comment.username}</strong>
                     <p>{comment.content}</p>
                   </div>
-                  <FontAwesomeIcon className="icons" icon={faEllipsisH} color="#F3F3F3" style={{ cursor: "pointer" }}  onClick={()=> {
+                  {
+                    comment.id_user === Number(storage?.user?.id)? 
+
+                    <FontAwesomeIcon className="icons" icon={faEllipsisH} color="#F3F3F3" style={{ cursor: "pointer" }}  onClick={()=> {
                       setModal(ModalOptionsComment)
                       setVisible(true);
                       setComment({id: comment.id,content: comment.content,id_elo: elo.id,id_user: Number(storage?.user?.id)})
-                  }} />
+                    }} />:<></>
+                  }
+              
                 </li>
                 ))
               }

@@ -25,6 +25,7 @@ interface CommentContentData {
   comments: Map<number, {id: number;content: string;id_elo: number;id_user: number;username: string;}[]>,
   setComment: (comment: Comment) => void
   addComments:(id_elo:number,comment:Comments) => void
+  deleteComment:(payload: {id:number,id_elo:number,id_user:number}) => Promise<void>
   listComments(params:{id_elo:number,offset:number}): Promise<void>
   listMoreComments(params:{id_elo:number,offset:number}): Promise<void>
 } 
@@ -57,11 +58,15 @@ export const CommentProvider: React.FC = ({ children }) => {
     if(clone_comments) {
       comments.set(id_elo,[...clone_comments,comment])
       setComments(comments) 
-    }
-
+    }  
   }
+
+  async function deleteComment(payload: {id:number,id_elo:number,id_user:number}) {
+    await api_core.delete(`/comment`,{ data: payload, headers: {Authorization: storage.data.token}})
+  }
+
  return (
-   <CommentContext.Provider value={{comment,comments,addComments,setComment,listComments,listMoreComments}}>
+   <CommentContext.Provider value={{comment,comments,deleteComment,addComments,setComment,listComments,listMoreComments}}>
      {children}
    </CommentContext.Provider>
  );

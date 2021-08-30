@@ -1,4 +1,5 @@
 import React from 'react'
+import { CommentContext } from '../../providers/comments'
 import { ModalContext } from '../../providers/modal'
 
 import  {
@@ -9,17 +10,31 @@ import  {
 const ModalOptionsComment: React.FC = () => {
 
     return (
-    <ModalContext.Consumer>
+    <CommentContext.Consumer>
         {
-            modal => (
-                <Container>
-                    <Option><p>Excluir</p></Option>
-                    <Option></Option>
-                    <Option onClick={()=> {modal.setVisible(false)}} ><p>Cancelar</p></Option>
-                </Container>
+            comment => (
+                <ModalContext.Consumer>
+                {
+                    modal => (
+                        <Container>
+                            <Option onClick={async ()=> {
+                                modal.setVisible(false)
+                                await comment.deleteComment({
+                                    id: comment.comment.id,
+                                    id_user: comment.comment.id_user,
+                                    id_elo: comment.comment.id_elo
+                                })
+                            }}
+                            ><p>Excluir</p></Option>
+                            <Option></Option>
+                            <Option onClick={()=> {modal.setVisible(false)}} ><p>Cancelar</p></Option>
+                        </Container>
+                    )
+                }
+                </ModalContext.Consumer>
             )
         }
-    </ModalContext.Consumer>
+    </CommentContext.Consumer>
     )
 }
 
