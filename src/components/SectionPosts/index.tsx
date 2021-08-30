@@ -128,9 +128,9 @@ const SectionPosts: React.FC = () => {
 
       {data?.elos.map((elo, index, array) => (
         <Post key={elo.id} id={`elo-${elo.id}`} onLoad={async ()=> {
-          await listComments({id_elo: elo.id,offset: 0})
-          await listVideos({id_elo: elo.id})
           await listImages({id_elo: elo.id})
+          await listVideos({id_elo: elo.id})
+          await listComments({id_elo: elo.id,offset: 0})
           }} >
           <PostHeader>
             <div
@@ -176,8 +176,6 @@ const SectionPosts: React.FC = () => {
               </div>
               ))
             }
-    
-  
           </PostCarrossel>
           <PostLikes>
             <FontAwesomeIcon
