@@ -27,6 +27,7 @@ import api_core from "../../utils/api_core";
 import ModalOptionsComment from "../ModalOptionsCommnet";
 import { CommentContext } from "../../providers/comments";
 import { storage } from "../../utils/storage";
+import ModalOptionsElo from "../ModalOptionsElo";
 
 
 interface User {
@@ -46,7 +47,7 @@ interface Data {
 
 const SectionPosts: React.FC = () => {
     const { setVisible, setModal } = React.useContext(ModalContext)
-    const { data,filter,setFilter,fetchMoreElos} = React.useContext(EloContext)
+    const { data,filter,setFilter,fetchMoreElos,setElo} = React.useContext(EloContext)
     const { registerLike} = React.useContext(LikeContext)
     const { comment,comments,setComment,listComments,listMoreComments} = React.useContext(CommentContext)
 
@@ -150,12 +151,20 @@ const SectionPosts: React.FC = () => {
                 {elo.name} - em <strong>{elo.address}</strong>
               </p>
             </div>
-            <FontAwesomeIcon
-              className="icons"
-              icon={faEllipsisV}
-              color="#F3F3F3"
-              style={{ cursor: "pointer" }}
-            />
+              {
+                elo.id_user === storage.data.user.id?
+                <FontAwesomeIcon className="icons" icon={faEllipsisV} color="#F3F3F3" style={{ cursor: "pointer" }} 
+              
+                onClick={()=> {
+                  setElo(elo)
+                  setModal(ModalOptionsElo)
+                  setVisible(true)
+                  }}/>
+                  :
+                  <></>
+              }
+
+            
           </PostHeader>
           <PostCarrossel>
             {

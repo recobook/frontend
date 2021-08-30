@@ -34,15 +34,19 @@ interface EloResponseData {
 
 interface EloContentData {
   data: EloResponseData 
+  elo: Elo 
+  setElo(elo:Elo): void
   filter:EloParam,
   searchElos(params:EloParam):Promise<void>
   fetchMoreElos(params:EloParam):Promise<void>
   setFilter(params:EloParam): void
+  deleteELo(id_elo: number,id_user: number): Promise<void>
 } 
 
 export const EloContext = createContext<EloContentData>({} as EloContentData );
 
 export const EloProvider: React.FC = ({ children }) => {
+  const [elo,setElo] = useState<Elo>({} as Elo)
   const [elos,setElos] = useState<Elo[]>([])
   const [error,setError] = useState(false)
   const [message,setMessage] = useState("")
@@ -102,13 +106,29 @@ export const EloProvider: React.FC = ({ children }) => {
 
   }
  
+  async function deleteELo(id_elo: number,id_user: number) {
+  const {data} = await api_core.delete(`/elo/${elo.id}`,
+    { data: {id_user: id_user},  
+      headers: { 'Content-Type': 'application/json', 'Authorization': `${storage.data.token}` } 
+    }
+    ) 
+    console.log(data)
+  }
+
+  async function updateELo() {
+    
+  }
+  
  return (
    <EloContext.Provider value={{
      data: {elos,error,message},
+     elo,
+     setElo,
      filter,
      setFilter,
      searchElos,
-     fetchMoreElos
+     fetchMoreElos,
+     deleteELo
      }}>
      {children}
    </EloContext.Provider>
