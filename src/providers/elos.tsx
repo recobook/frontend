@@ -41,6 +41,7 @@ interface EloContentData {
   fetchMoreElos(params:EloParam):Promise<void>
   setFilter(params:EloParam): void
   deleteELo(id_elo: number,id_user: number): Promise<void>
+  updateELo(elo:Elo): Promise<void>
 } 
 
 export const EloContext = createContext<EloContentData>({} as EloContentData );
@@ -107,15 +108,26 @@ export const EloProvider: React.FC = ({ children }) => {
   }
  
   async function deleteELo(id_elo: number,id_user: number) {
-  const {data} = await api_core.delete(`/elo/${elo.id}`,
+    await api_core.delete(`/elo/${elo.id}`,
     { data: {id_user: id_user},  
       headers: { 'Content-Type': 'application/json', 'Authorization': `${storage.data.token}` } 
     }
     ) 
-    console.log(data)
+    
   }
 
-  async function updateELo() {
+  async function updateELo(elo:Elo) {
+    
+    await api_core.put(`/elo/${elo.id}`,
+    {
+      address: elo.address,
+      category: elo.category,
+      description: elo.description,
+      id_user: storage.data.user.id
+    },
+    {
+      headers: { 'Content-Type': 'application/json', 'Authorization': `${storage.data.token}` } 
+    }) 
     
   }
   
@@ -128,7 +140,8 @@ export const EloProvider: React.FC = ({ children }) => {
      setFilter,
      searchElos,
      fetchMoreElos,
-     deleteELo
+     deleteELo,
+     updateELo
      }}>
      {children}
    </EloContext.Provider>

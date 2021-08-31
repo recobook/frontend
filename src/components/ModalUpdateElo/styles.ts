@@ -40,10 +40,21 @@ export const Title = styled.h2`
 `;
 export const Textarea = styled.textarea`
     width: 100%;
-    height: 50%;
+    height: 70%;
     padding-top: 5px;
     padding-left: 15px;
     font-family: Roboto,sans-serif;
     font-size: 18px;
     outline: none;
+`
+export const Button = styled.button`
+    max-width: 478px;
+    max-height: 54px;
+    width: 100%;
+    height: 54px;
+    background-color: #E34D4D;
+    font-size: 18px;
+    border-radius: 0.3em;
+    color: #ffffff;
+    cursor: pointer;
 `

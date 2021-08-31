@@ -2,6 +2,7 @@ import React from 'react'
 import { EloContext } from '../../providers/elos'
 import { ModalContext } from '../../providers/modal'
 import { storage } from '../../utils/storage'
+import ModalUpdateElo from '../ModalUpdateElo'
 
 import  {
     Container,
@@ -23,7 +24,10 @@ const ModalOptionsElo: React.FC = () => {
                                 await elo.deleteELo(elo.elo.id,storage.data.user.id)
                             }}
                             ><p>Excluir</p></Option>
-                            <Option>Atualizar</Option>
+                            <Option onClick={()=>{
+                                modal.setVisible(true)
+                                modal.setModal(ModalUpdateElo)
+                            }}>Atualizar</Option>
                             <Option></Option>
                             <Option onClick={()=> {modal.setVisible(false)}} ><p>Cancelar</p></Option>
                         </Container>

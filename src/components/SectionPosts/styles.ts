@@ -116,6 +116,7 @@ export const PostLikes = styled.div`
     display: flex;
     flex-direction: column;
     padding-left:10px;
+    margin-bottom: 20px;
 ` 
 
 export const PostComments = styled.div`

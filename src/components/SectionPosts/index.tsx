@@ -195,8 +195,9 @@ const SectionPosts: React.FC = () => {
               onClick={() => registerLike(elo.id)}
             />
             <span>
-              {elo.qtd_likes}{" "}
+              {elo.qtd_likes}
               <strong>{elo.qtd_likes > 1 ? "Likes" : "Like"}</strong>
+              <p>{elo.description}</p>
             </span>
           </PostLikes>
           <PostComments>
