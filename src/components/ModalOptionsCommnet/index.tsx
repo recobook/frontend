@@ -1,6 +1,7 @@
 import React from 'react'
 import { CommentContext } from '../../providers/comments'
 import { ModalContext } from '../../providers/modal'
+import ModalUpdateComment from '../ModalUpdateComment'
 
 import  {
     Container,
@@ -26,6 +27,8 @@ const ModalOptionsComment: React.FC = () => {
                                 })
                             }}
                             ><p>Excluir</p></Option>
+                            <Option onClick={async ()=> { modal.setModal(ModalUpdateComment) }}
+                            ><p>Atualizar</p></Option>
                             <Option></Option>
                             <Option onClick={()=> {modal.setVisible(false)}} ><p>Cancelar</p></Option>
                         </Container>

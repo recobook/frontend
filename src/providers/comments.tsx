@@ -28,6 +28,7 @@ interface CommentContentData {
   deleteComment:(payload: {id:number,id_elo:number,id_user:number}) => Promise<void>
   listComments(params:{id_elo:number,offset:number}): Promise<void>
   listMoreComments(params:{id_elo:number,offset:number}): Promise<void>
+  updateComment(payload: Comment): Promise<void>
 } 
 
 export const CommentContext = createContext<CommentContentData>({} as CommentContentData );
@@ -64,9 +65,15 @@ export const CommentProvider: React.FC = ({ children }) => {
   async function deleteComment(payload: {id:number,id_elo:number,id_user:number}) {
     await api_core.delete(`/comment`,{ data: payload, headers: {Authorization: storage.data.token}})
   }
+  
+
+  async function updateComment(payload: Comment) {
+
+    await api_core.put(`/comment`,payload,{ headers: {Authorization: storage.data.token}})
+  }
 
  return (
-   <CommentContext.Provider value={{comment,comments,deleteComment,addComments,setComment,listComments,listMoreComments}}>
+   <CommentContext.Provider value={{comment,comments,deleteComment,updateComment,addComments,setComment,listComments,listMoreComments}}>
      {children}
    </CommentContext.Provider>
  );
