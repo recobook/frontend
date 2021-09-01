@@ -1,6 +1,8 @@
 import React, { createContext,useState } from 'react';
 
+import { v4 as uuidv4 } from 'uuid';
 import api_core from '../utils/api_core'
+import api_dobby from '../utils/api_dobby';
 import {storage} from '../utils/storage'
 
 interface Elo {
@@ -42,12 +44,22 @@ interface EloContentData {
   setFilter(params:EloParam): void
   deleteELo(id_elo: number,id_user: number): Promise<void>
   updateELo(elo:Elo): Promise<void>
+  images: FileList | null
+  videos: FileList | null
+  setImages(files: FileList | null):void
+  setVideos(files: FileList | null):void
+  createElo(elo:Elo,images: FileList|null,videos:FileList|null): Promise<void>
+
 } 
 
 export const EloContext = createContext<EloContentData>({} as EloContentData );
 
 export const EloProvider: React.FC = ({ children }) => {
   const [elo,setElo] = useState<Elo>({} as Elo)
+  
+  const [images,setImages] = useState<FileList | null>(null)
+  const [videos,setVideos] = useState<FileList | null>(null)
+
   const [elos,setElos] = useState<Elo[]>([])
   const [error,setError] = useState(false)
   const [message,setMessage] = useState("")
@@ -128,7 +140,52 @@ export const EloProvider: React.FC = ({ children }) => {
     {
       headers: { 'Content-Type': 'application/json', 'Authorization': `${storage.data.token}` } 
     }) 
+  }
+
+  async function createElo(elo:Elo,images: FileList|null,videos:FileList|null) {
+
+    const {data} = await  api_core.post<{error: boolean,message: string,id: number}>( "/elo",elo, {headers: { 'Content-Type': 'application/json', 'Authorization': `${storage.data.token}` } })
+
+    const formDataImages = new FormData();
+    const formDataVideos = new FormData();
+
+  
+    if(images?.length){
+
+      for (let index = 0; index < images.length; index++) {
+        const image = images.item(index);
+        if (image){
+          const uuid = uuidv4()
+          const filename = `${uuid}${image.name}`.replaceAll(" ","")
+
+          formDataImages.append(filename,image,filename)
+          
+          await api_core.post("/image",{url: `http://0.0.0.0:1993/images/${filename}`, id_elo: data.id },{ headers: { 'Content-Type': 'application/json', 'Authorization': `${storage.data.token}` }})
+        }
+
+      }
+    }
     
+    if(videos?.length){
+
+      for (let index = 0; index < videos.length; index++) {
+        const video = videos.item(index);
+        if (video){
+          const uuid = uuidv4()
+          const filename = `${uuid}${video.name}`.replaceAll(" ","")
+
+          formDataVideos.append(filename,video,filename)
+
+          await api_core.post("/video",{url: `http://0.0.0.0:1993/videos/${filename}`, id_elo: data.id },{ headers: { 'Content-Type': 'application/json', 'Authorization': `${storage.data.token}` }})          
+        }
+
+      }
+
+    }
+    
+    await api_dobby.post("/image",formDataImages,{ headers: { 'Content-Type': 'multipart/form-data', 'Authorization': `${storage.data.token}` } })
+    
+    await api_dobby.post("/video",formDataVideos,{ headers: { 'Content-Type': 'multipart/form-data', 'Authorization': `${storage.data.token}` } })
   }
   
  return (
@@ -141,7 +198,12 @@ export const EloProvider: React.FC = ({ children }) => {
      searchElos,
      fetchMoreElos,
      deleteELo,
-     updateELo
+     updateELo,
+     videos,
+     images,
+     setImages,
+     setVideos,
+     createElo
      }}>
      {children}
    </EloContext.Provider>

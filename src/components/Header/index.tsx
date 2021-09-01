@@ -48,7 +48,7 @@ const Header: React.FC = () => {
           qtd_comments: filter.qtd_comments,
           qtd_likes: filter.qtd_likes,
           category: filter.category,
-          description: `%${filter.description}%`,
+          description: filter.description,
           offset: filter.offset
         })
   
