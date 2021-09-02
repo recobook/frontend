@@ -12,6 +12,7 @@ import Avatar from '../Avatar'
 import { EloContext } from "../../providers/elos";
 import { ModalContext } from "../../providers/modal";
 import ModalFilter from "../ModalFilter";
+import ModalProfile from "../ModalProfile";
 
 interface User {
     id: number;
@@ -97,7 +98,10 @@ const Header: React.FC = () => {
         <Link to="/">
           <FontAwesomeIcon className="icons" icon={faHome} color="#F3F3F3" />
         </Link>
-        <Avatar src={storage?.user?.photo} alt={storage?.user?.name} />
+        <Avatar src={storage?.user?.photo} alt={storage?.user?.name} onClick={()=> {
+          setModal(ModalProfile)
+          setVisible(true)
+        }} />
       </div>
     </Container>
   );

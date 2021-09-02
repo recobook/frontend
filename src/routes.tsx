@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import CreateAccount from "./pages/CreateAccount";
 import ForgoutPassword from './pages/ForgoutPassword'
 import MainPage from './pages/MainPage'
+import Profile from './pages/Profile'
 
 const PrivateRoute  = ({ component: Component, ...rest }:any) => (
   <Route
@@ -28,6 +29,7 @@ export default function Routes() {
         <Route path="/signup" exact component={CreateAccount} />  
         <Route path="/forgoutPassword" exact component={ForgoutPassword} />  
         <PrivateRoute path="/" exact component={MainPage}  />
+        <PrivateRoute path="/profile" exact component={Profile}  />
       </Switch>
   );
 }
