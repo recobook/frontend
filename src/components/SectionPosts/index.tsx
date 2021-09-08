@@ -98,13 +98,11 @@ const SectionPosts: React.FC = () => {
           
   async function listVideos(params:{id_elo:number}) {
     const {data} = await api_core.get<{ error: boolean, message: string, videos: [{id: number,url: string,id_elo: number }]}>("/videos",{params,headers: {Authorization: `${storage.data.token}`}})
-    console.log(data.videos)
     videos.set(params.id_elo,data.videos)
     setVideos(videos) 
   }
   async function listImages(params:{id_elo:number}) {
     const {data} = await api_core.get<{ error: boolean, message: string, images: [{id: number,url: string,id_elo: number }]}>("/images",{params,headers: {Authorization: `${storage.data.token}`}})
-    console.log(data.images)
     images.set(params.id_elo,data.images)
     setImages(images) 
   }

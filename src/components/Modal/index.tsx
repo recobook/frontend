@@ -5,10 +5,10 @@ import { Container } from './styles';
 
 
 const Modal: React.FC = () => {
-  const {visible,modal} = useContext(ModalContext)
+  const {visible,modal, setVisible} = useContext(ModalContext)
 
   return (
-  <Container visible={visible} >
+  <Container visible={visible} onClick={()=>{setVisible(false)}}>
     {modal}
   </Container>
   );
