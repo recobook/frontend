@@ -1,5 +1,4 @@
 import React, { createContext, useState } from 'react';
-import ModalFilter from '../components/ModalFilter';
 
 interface ModalContentData {
     visible: boolean;

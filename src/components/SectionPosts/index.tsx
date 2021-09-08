@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import InputBase from '@material-ui/core/InputBase';
 import Divider from '@material-ui/core/Divider';
@@ -29,21 +29,6 @@ import { CommentContext } from "../../providers/comments";
 import { storage } from "../../utils/storage";
 import ModalOptionsElo from "../ModalOptionsElo";
 
-
-interface User {
-    id: number;
-    name: string;
-    email: string;
-    username: string;
-    photo: string;
-    bio: string;
-}
-interface Data {
-    error: boolean
-    message: string
-    user: User | null
-    token: string
-}
 
 const SectionPosts: React.FC = () => {
     const { setVisible, setModal } = React.useContext(ModalContext)
