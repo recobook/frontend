@@ -107,7 +107,12 @@ export const PostCarrossel = styled.div`
 
 
     }
- 
+
+    .wrapper-item {
+       width: 100%;
+       display: flex;
+       justify-content: center;
+    }   
 `
 
 export const PostLikes = styled.div`

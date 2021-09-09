@@ -25,8 +25,8 @@ const ModalOptionsElo: React.FC = () => {
                             }}
                             ><p>Excluir</p></Option>
                             <Option onClick={()=>{
-                                modal.setVisible(true)
                                 modal.setModal(ModalUpdateElo)
+                                modal.setVisible(true)
                             }}>Atualizar</Option>
                             <Option></Option>
                             <Option onClick={()=> {modal.setVisible(false)}} ><p>Cancelar</p></Option>

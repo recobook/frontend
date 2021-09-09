@@ -111,7 +111,7 @@ const SectionPosts: React.FC = () => {
       </div>
 
       {data?.elos.map((elo, index, array) => (
-        <Post key={elo.id} id={`elo-${elo.id}`} onLoad={async ()=> {
+        <Post key={index} id={`elo-${elo.id}`} onLoad={async ()=> {
           await listImages({id_elo: elo.id})
           await listVideos({id_elo: elo.id})
           await listComments({id_elo: elo.id,offset: 0})
@@ -152,14 +152,14 @@ const SectionPosts: React.FC = () => {
           <PostCarrossel>
             {
               images.get(elo.id)?.map(image => (
-                <div>
+                <div className="wrapper-item">
                   <img src={image.url} alt="" />
                 </div>
               ))
             }
             {
               videos.get(elo.id)?.map(video => (
-              <div>
+              <div className="wrapper-item">
                 <video
                   controls
                   width="250"
