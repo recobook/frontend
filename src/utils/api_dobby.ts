@@ -1,5 +1,5 @@
 import axios from 'axios'
 
 export default axios.create({
-    baseURL: "http://0.0.0.0:1993",    
+    baseURL: `http://${window.location.hostname}:1993`,    
 })
