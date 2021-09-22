@@ -74,7 +74,8 @@ export const EloProvider: React.FC = ({ children }) => {
 
   async function searchElos(params:EloParam){
     
-    
+    setElos([])
+
     const {data} = await api_core.get<EloResponseData>("/elos",
     {
       params,
@@ -84,9 +85,8 @@ export const EloProvider: React.FC = ({ children }) => {
       }
     }
     )
-    
-
-    setElos([...data.elos])
+  
+    setElos(data.elos)
     setError(data.error)
     setMessage(data.message)
     
