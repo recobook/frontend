@@ -64,7 +64,7 @@ export const EloProvider: React.FC = ({ children }) => {
   const [error,setError] = useState(false)
   const [message,setMessage] = useState("")
   const [filter,setFilter] = useState<EloParam>({
-    address: `%Almirante%`,
+    address: `%Praia%`,
     qtd_comments: 0,
     qtd_likes: 0,
     category: 'caro',
@@ -82,10 +82,10 @@ export const EloProvider: React.FC = ({ children }) => {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `${storage.data.token}`
-      }
+      },
+      validateStatus: (status) => { return status === 400 || status === 200}       
     }
     )
-  
     setElos(data.elos)
     setError(data.error)
     setMessage(data.message)

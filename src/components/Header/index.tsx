@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import InputBase from '@material-ui/core/InputBase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFilter,faHome } from '@fortawesome/free-solid-svg-icons'
+import { faFilter,faHome} from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
 
 
@@ -50,10 +50,9 @@ const Header: React.FC = () => {
           qtd_likes: filter.qtd_likes,
           category: filter.category,
           description: filter.description,
-          offset: filter.offset
+          offset: 0
         })
-  
-      await searchElos(filter)
+        await searchElos(filter)  
     }
  
   
@@ -62,7 +61,7 @@ const Header: React.FC = () => {
       setStorage( JSON.parse(`${localStorage.getItem("data")}`) as Data )
   
       setFilter({
-        address: `%${filter.address}%`,
+        address: `%Praia%`,
         qtd_comments: filter.qtd_comments,
         qtd_likes: filter.qtd_likes,
         category: filter.category,
@@ -84,14 +83,12 @@ const Header: React.FC = () => {
           inputProps={{ "aria-label": "search google maps" }}
           onChange={handleInputSearch}
         />
-        <FontAwesomeIcon
-          className="icons icon-filter"
-          icon={faFilter}
-          color="#CB6161"
-          onClick={() => {
+
+        <FontAwesomeIcon className="icons icon-filter" icon={faFilter} color="#CB6161" onClick={() => {
             setModal(ModalFilter)
             setVisible(true)
-          }}
+        }}
+
         />
       </div>
       <div className="column-header">
