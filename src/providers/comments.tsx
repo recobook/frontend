@@ -61,7 +61,15 @@ export const CommentProvider: React.FC = ({ children }) => {
   
 
   async function updateComment(payload: Comment) {
+    setComments(new Map().set(payload.id_elo,comments.get(payload.id_elo)?.map(item => {
 
+      if (item.id === payload.id) {
+        item.content = payload.content
+      }
+
+      return item
+    })))
+    
     await api_core.put(`/comment`,payload,{ headers: {Authorization: storage.data.token}})
   }
 
