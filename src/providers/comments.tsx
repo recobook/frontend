@@ -39,30 +39,23 @@ export const CommentProvider: React.FC = ({ children }) => {
   
   async function listComments(params:{id_elo:number,offset:number}) {
     const {data} = await api_core.get<ResponseComment>("/comments",{params,headers: {Authorization: storage.data.token}})
-    
-    comments.set(params.id_elo,data.comments)
-    setComments(comments) 
+    setComments(new Map().set(params.id_elo,data.comments)) 
   }
   async function listMoreComments(params:{id_elo:number,offset:number}) {
-    const {data} = await api_core.get<ResponseComment>("/",{params,headers: {Authorization: storage.data.token}})
-    const clone_comments = comments.get(params.id_elo)
+    const {data} = await api_core.get<ResponseComment>("/comments",{params,headers: {Authorization: storage.data.token}})
 
-    if(clone_comments) {
-      comments.set(params.id_elo,[...clone_comments,...data.comments])
-      setComments(comments) 
-    }
+    
+      setComments(new Map().set(params.id_elo,[...data.comments])) 
+    
   }
 
   async function addComments(id_elo:number,comment:Comments) {
-    const clone_comments = comments.get(id_elo)
-
-    if(clone_comments) {
-      comments.set(id_elo,[...clone_comments,comment])
-      setComments(comments) 
-    }  
+    
+    setComments(new Map().set(id_elo,[comments.get(id_elo)?.filter(item => comment.id - 1 !== item.id )]))
   }
 
-  async function deleteComment(payload: {id:number,id_elo:number,id_user:number}) {
+  async function deleteComment(payload: {id:number,id_elo:number,id_user:number}) {    
+    setComments(new Map().set(payload.id_elo,comments.get(payload.id_elo)?.filter(item => payload.id !== item.id )))
     await api_core.delete(`/comment`,{ data: payload, headers: {Authorization: storage.data.token}})
   }
   

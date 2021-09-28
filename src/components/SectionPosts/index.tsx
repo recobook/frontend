@@ -111,10 +111,10 @@ const SectionPosts: React.FC = () => {
       </div>
 
       {data?.elos.map((elo, index, array) => (
-        <Post key={index} id={`elo-${elo.id}`} onLoad={async ()=> {
-          await listImages({id_elo: elo.id})
-          await listVideos({id_elo: elo.id})
-          await listComments({id_elo: elo.id,offset: 0})
+        <Post key={index} id={`elo-${elo.id}`} onLoad={()=> {
+          listImages({id_elo: elo.id}).then(()=>{})
+          listVideos({id_elo: elo.id}).then(()=>{})
+          listComments({id_elo: elo.id,offset: 0}).then(()=>{})
           }} >
           <PostHeader>
             <div
@@ -184,6 +184,7 @@ const SectionPosts: React.FC = () => {
             </span>
           </PostLikes>
           <PostComments>
+
               {
                 comments.get(elo.id)?.map((comment,index)=>(
                 <li key={index}>
@@ -210,7 +211,7 @@ const SectionPosts: React.FC = () => {
             <InputBase
               className="input-editor-comment"
               placeholder="Interaja com este elo"
-              onChange={event => setComment({id: 0,content: event.target.value,id_elo: elo.id,id_user: Number(storage.data.user.id)})}
+              onChange={event => setComment({id: comments.size + 1,content: event.target.value,id_elo: elo.id,id_user: Number(storage.data.user.id)})}
               inputProps={{ "aria-label": "search google maps" }}
             />
             <FontAwesomeIcon
