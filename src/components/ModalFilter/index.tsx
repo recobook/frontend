@@ -133,7 +133,7 @@ const ModalFilter: React.FC = () => {
             </AreaOptions>
             <Button onClick={async ()=> {
               modal.setVisible(false);
-              await elo.fetchMoreElos(elo.filter);
+              elo.searchElos(elo.filter).then(()=>{});
             
 
             }} >Filtrar</Button>
