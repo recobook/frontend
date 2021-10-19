@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle ,faPlusCircle,faMinusCircle} from "@fortawesome/free-solid-svg-icons";
 
-import { Container, Header, Title,TitleCategory, AreaOptions,Label, Option,Wrapper,InputDscription,Button } from "./styles";
+import { Container, Header, Title,TitleCategory, AreaOptions,Label, Option,Wrapper,InputDscription,Button,InputCategory } from "./styles";
 import { ModalContext } from "../../providers/modal";
 import { EloContext } from "../../providers/elos";
 
@@ -114,21 +114,24 @@ const ModalFilter: React.FC = () => {
               <TitleCategory>Financeiro</TitleCategory>
               <Option>
                 <Label>Categoria</Label>
-                <InputDscription
-                  defaultValue=""
-                  type="text"
-                  onChange={(e)=> {
-                    elo.setFilter({
-                      address: elo.filter.address,
-                      category: e.target.value,
-                      description: elo.filter.description,
-                      offset: elo.filter.offset,
-                      qtd_likes: elo.filter.qtd_likes,
-                      qtd_comments: elo.filter.qtd_comments,
-                    })
+                <InputCategory onChange={(e)=>{
 
-                  }}
-                />
+                   elo.setFilter({
+                    address: elo.filter.address,
+                    category: e.target.value,
+                    description: elo.filter.description,
+                    offset: elo.filter.offset,
+                    qtd_likes: elo.filter.qtd_likes,
+                    qtd_comments: elo.filter.qtd_comments,
+                  })
+
+
+                }}>
+                    <option value="muito barato">muito barato</option>
+                    <option value="barato">barato</option>
+                    <option value="caro">caro</option>
+                    <option value="muito caro">muito caro</option>
+                </InputCategory>
               </Option>
             </AreaOptions>
             <Button onClick={async ()=> {
