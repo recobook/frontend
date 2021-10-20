@@ -40,7 +40,7 @@ const ForgoutPassword: React.FC = () => {
       <Container>
         <SectionMain backgroundColor="var(--white)">
           <Header>
-            <Logo src="/assets/logo.png" />
+          <a href={`http://${window.location.host}/login`} ><Logo src="/assets/logo.png" /></a>
           </Header>
           <Title fontSize="46px" color="var(--red)" >Esqueci minha senha</Title>
           <Form onSubmit={onSubmit}>

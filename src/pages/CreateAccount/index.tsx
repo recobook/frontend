@@ -56,7 +56,7 @@ const CreateAccount: React.FC = () => {
       <Container>
         <SectionMain backgroundColor="var(--white)">
           <Header>
-            <Logo src="/assets/logo.png" />
+          <a href={`http://${window.location.host}/login`}><Logo src="/assets/logo.png" /></a>
           </Header>
           <Title fontSize="46px" color="var(--red)" >Criar sua conta</Title>
           <Form onSubmit={onSubmit}>

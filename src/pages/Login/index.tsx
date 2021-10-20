@@ -44,7 +44,7 @@ const Login: React.FC = () => {
       <Container>
         <SectionMain backgroundColor="var(--white)">
           <Header>
-            <Logo src="/assets/logo.png" />
+            <a href={`http://${window.location.host}/login`} ><Logo src="/assets/logo.png" /></a>
           </Header>
           <Title fontSize="46px" color="var(--red)" >Entre em sua conta</Title>
           <Form onSubmit={onSubmit}>

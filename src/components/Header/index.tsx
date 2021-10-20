@@ -75,7 +75,8 @@ const Header: React.FC = () => {
 
   return (
     <Container>
-      <Logo src="/assets/logo.png" />
+
+      <a href={window.location.href} ><Logo src="/assets/logo.png" /></a>
       <div className="column-header">
         <InputBase
           className="input-search"
