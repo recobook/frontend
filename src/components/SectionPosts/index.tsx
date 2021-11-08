@@ -175,11 +175,13 @@ const SectionPosts: React.FC = () => {
               icon={faHeart}
               color="#C4C4C4"
               style={{ cursor: "pointer" }}
-              onClick={() => registerLike(elo.id)}
+              onClick={() => {
+                registerLike(elo.id)
+              }}
             />
             <span>
               {elo.qtd_likes}
-              <strong>{elo.qtd_likes > 1 ? "Likes" : "Like"}</strong>
+              <strong>{elo.qtd_likes > 1 ? " Curtidas" : " Curtida"}</strong>
               <p>{elo.description}</p>
             </span>
           </PostLikes>

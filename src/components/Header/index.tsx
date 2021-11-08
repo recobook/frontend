@@ -93,7 +93,9 @@ const Header: React.FC = () => {
         />
       </div>
       <div className="column-header">
-        <Link to="/">
+        <Link to="/" onClick={()=>{
+           setVisible(false)
+        }}>
           <FontAwesomeIcon className="icons" icon={faHome} color="#F3F3F3" />
         </Link>
         <Avatar src={storage?.user?.photo} alt={storage?.user?.name} onClick={()=> {
