@@ -48,7 +48,7 @@ const Login: React.FC = () => {
           </Header>
           <Title fontSize="46px" color="var(--red)" >Entre em sua conta</Title>
           <Form onSubmit={onSubmit}>
-            <TextField className="inputs" color="secondary" name="username" label="Username" variant="outlined" required />
+            <TextField className="inputs" color="secondary" name="username" label="Usuário" variant="outlined" required />
             <TextField className="inputs" color="secondary" name="password" label="Senha" type="password" variant="outlined" required/>
             {
               firstTry?<></>:<Alert severity={data?.status === 400 ? "error":"success"}>{data?.data?.message}</Alert>
